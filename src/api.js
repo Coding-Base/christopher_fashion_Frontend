@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Create an axios instance with a base URL
+// Create an axios instance with your deployed backend URL as the base URL
 const API = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/', // Your Django API base URL
+    baseURL: 'https://christoper-fashion-backend.onrender.com/api/', // Deployed Django API base URL
     headers: {
         'Content-Type': 'application/json',
     },
@@ -27,3 +27,4 @@ export const fetchCategories = () => API.get('categories/');
 export const createPaymentLink = (paymentData) =>
     API.post('create-payment-link/', paymentData);
 
+export default API;

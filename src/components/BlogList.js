@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import "./BlogList.css"
+import API from './api'; // Import the axios instance
+import "./BlogList.css";
+
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/blogs/') // Replace with your API URL
-      .then((response) => response.json())
-      .then((data) => setBlogs(data))
-      .catch((error) => console.error('Error fetching blogs:', error));
+    // Use the axios instance to fetch blogs
+    API.get('blogs/')
+      .then((response) => {
+        setBlogs(response.data); // Use `response.data` to get the actual data
+      })
+      .catch((error) => {
+        console.error('Error fetching blogs:', error);
+      });
   }, []);
 
   return (
@@ -16,10 +22,8 @@ const BlogList = () => {
       {blogs.map((blog) => (
         <div key={blog.id} className="blog-card">
           <h3>{blog.title}</h3>
-         
           <p><strong>Author:</strong> {blog.author}</p>
           <p>{blog.content.substring(0, 1000)}...</p>
-          
           {blog.image && <img src={blog.image} alt={blog.title} />}
           <p><strong>Published:</strong> {new Date(blog.created_at).toLocaleDateString()}</p>
         </div>
@@ -29,4 +33,3 @@ const BlogList = () => {
 };
 
 export default BlogList;
-
