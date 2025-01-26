@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import API from './api'; // Import the axios instance
+import API from '../api'; // Import the axios instance
 import "./BlogList.css";
 
 const BlogList = () => {

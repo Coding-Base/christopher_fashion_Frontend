@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./style.css";
-import { fetchProducts, createPaymentLink } from '../api'; // Handles API requests
+import { fetchProducts, createPaymentLink } from '../api'; // Import API methods
 
 const ProductList = () => {
   const [products, setProducts] = useState([]); // State for products
@@ -13,9 +13,10 @@ const ProductList = () => {
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const response = await fetchProducts();
+        const response = await fetchProducts(); // Fetch products using the API function
         setProducts(response.data); // Populate products
       } catch (err) {
+        console.error('Error fetching products:', err);
         setError("Failed to fetch products. Please try again later.");
       } finally {
         setLoading(false); // Stop loading spinner
@@ -41,6 +42,7 @@ const ProductList = () => {
         setErrorProduct(product.id); // Set error for the specific product
       }
     } catch (err) {
+      console.error(`Error generating payment link for product ${product.id}:`, err);
       setErrorProduct(product.id); // Handle API call failure
     } finally {
       setLoadingProduct(null); // Clear loading state
